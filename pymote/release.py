@@ -1,8 +1,8 @@
-name = 'Pymote'
+name = 'Pymote3'
 # http://semver.org/
 major = 0
-minor = 2
-patch = 2
+minor = 0
+patch = 1
 
 # Declare current release as a development release.
 # Change to False before tagging a release; then change back.
@@ -22,11 +22,11 @@ distributed algorithms.
 
 """
 license = 'BSD'  # @ReservedAssignment
-authors = {'Arbula': ('Damir Arbula', 'damir.arbula@gmail.com'),
+authors = {'miquelramirez': ('Miquel Ramirez', 'miquel.ramirez@gmail.com'), 'Arbula': ('Damir Arbula', 'damir.arbula@gmail.com'),
            }
 #maintainer = "Pymote Developers"
 #maintainer_email = "pymote-discuss@googlegroups.com"
-url = 'https://github.com/darbula/pymote'
+url = 'https://github.com/miquelramirez/pymote-3'
 download_url = ''
 platforms = ['Windows', 'Linux', 'Mac OSX']
 keywords = ['Networks', 'Distributed algorithms']
