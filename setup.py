@@ -53,7 +53,7 @@ setup(
         'pypng',
         'ipython',
         'matplotlib',
-        'PySide',
+        'PySide2',
     ],
     long_description=open(os.path.join(os.path.dirname(__file__),
                                        'README.rst')).read(),
