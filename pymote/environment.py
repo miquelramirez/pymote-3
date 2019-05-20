@@ -8,14 +8,15 @@ from numpy.core.numeric import sign, sqrt, Inf
 class Environment(object):
     """ Environment abstract base class """
 
-    def __new__(self, **kwargs):
+    @classmethod
+    def create(cls, **kwargs):
         """ return instance of default Environment """
-        for cls in self.__subclasses__():
-            if (cls.__name__ == settings.ENVIRONMENT):
-                return object.__new__(cls, **kwargs)
+        for sub in cls.__subclasses__():
+            if (sub.__name__ == settings.ENVIRONMENT):
+                return sub(**kwargs)
         # if self is not Environment class (as in pickle.load_newobj) return
         # instance of self
-        return object.__new__(self, **kwargs)
+        return Environment(**kwargs)
 
     def is_space(self, xy):
         raise NotImplementedError

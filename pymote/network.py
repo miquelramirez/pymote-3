@@ -20,8 +20,7 @@ class Network(Graph):
 
     def __init__(self, environment=None, channelType=None, algorithms=(),
                  networkRouting=True, **kwargs):
-        self._environment = environment or Environment()
-        # assert(isinstance(self.environment, Environment))
+        self._environment = environment or Environment.create()
         self.channelType = channelType or ChannelType.create(self._environment)
         self.channelType.environment = self._environment
         self.pos = {}
