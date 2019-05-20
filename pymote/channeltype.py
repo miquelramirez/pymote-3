@@ -6,14 +6,14 @@ from numpy.random import random
 class ChannelType(object):
     """ChannelType abstract base class."""
 
-    def __new__(self, environment=None, **kwargs):
-        """Return instance of default ChannelType."""
-        for cls in self.__subclasses__():
-            if (cls.__name__ == settings.CHANNEL_TYPE):
-                return object.__new__(cls, environment)
-        # if self is not ChannelType class (as in pickle.load_newobj) return
-        # instance of self
-        return object.__new__(self, environment, **kwargs)
+    @classmethod
+    def create(cls, environment=None, **kwargs):
+
+        for sub in cls.__subclasses__():
+            if sub.__name__ == settings.CHANNEL_TYPE:
+                return sub(environment)
+
+        return ChannelType(environment)
 
     def in_comm_range(self, network, node1, node2):
         raise NotImplementedError
