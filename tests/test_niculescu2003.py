@@ -20,7 +20,7 @@ class TestNiculescu2003(unittest.TestCase):
                                         'positionKey': 'pos',
                                         'dataKey': 'I'}),
                           )
-        for node in self.net.nodes()[:10]:
+        for node in list(self.net.nodes())[:10]:
             node.compositeSensor = (TruePosSensor,)
 
     def test_niculescu2003_sim(self):
