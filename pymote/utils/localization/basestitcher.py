@@ -3,6 +3,7 @@ from numpy.lib.type_check import real, imag
 from pymote.utils.localization.stitchsubclusterselectors import \
             MaxCommonNodeSelector, StitchSubclusterSelectorBase
 from pymote.logger import logger
+import numpy as np
 from numpy import array, sqrt, outer
 from numpy.linalg import eig, det
 
@@ -46,7 +47,7 @@ class BaseStitcher(object):
 
         # First remove incomplete stitches from stitched
         for k, v in list(stitched.items()):
-            if None in v:
+            if np.any(v==None):
                 stitched.pop(k)
         # Then using stitched dictionary keys find out which subclusters are
         # not stitched and append them to dst.subclusters
@@ -88,7 +89,8 @@ class BaseStitcher(object):
             # stitch srcSub to dstSub using given method
             R, s, t = self.stitch_subclusters(dst[dstSubIndex],
                                               src[srcSubIndex])
-            if None in (R, s, t):  # skip unreliable stitches
+            if np.any(R==None) or np.any(s==None) or np.any(t==None):
+            #if None in (R, s, t):  # skip unreliable stitches
                 stitched[(dstSubIndex, srcSubIndex)] = (R, s, t)
                 stitched[(srcSubIndex, dstSubIndex)] = (R, s, t)
                 continue
@@ -124,7 +126,9 @@ class BaseStitcher(object):
 
     def transform(self, R, s, t, pos, ori=nan):
         """ Transform node position. """
-        assert None not in (R, s, t)
+        assert np.all(R!=None) and np.all(s!=None) and np.all(t!=None)
+        #assert None not in (R, s, t)
+
         assert not imag(R).any()
         R = real(R)
         if not isnan(ori):
