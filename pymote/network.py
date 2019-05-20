@@ -22,7 +22,7 @@ class Network(Graph):
                  networkRouting=True, **kwargs):
         self._environment = environment or Environment()
         # assert(isinstance(self.environment, Environment))
-        self.channelType = channelType or ChannelType(self._environment)
+        self.channelType = channelType or ChannelType.create(self._environment)
         self.channelType.environment = self._environment
         self.pos = {}
         self.ori = {}
@@ -59,7 +59,8 @@ class Network(Graph):
 
     def nodes(self, data=False):
         """ Override, sort nodes by id, important for message ordering."""
-        return list(sorted(self.nodes_iter(data=data), key=lambda k: k.id))
+        return list(sorted(super(Network,self).nodes(data=data), key=lambda k: k.id))
+
 
     @property
     def algorithms(self):
