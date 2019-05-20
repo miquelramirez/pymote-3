@@ -6,6 +6,7 @@ import networkx as nx
 from .environment import Environment
 from .channeltype import ChannelType
 from .node import Node
+import numpy as np
 from numpy.random import rand
 from numpy.core.numeric import Inf, allclose
 from numpy import array, pi, sign, max, min
@@ -161,7 +162,7 @@ class Network(Graph):
         return None
 
     def avg_degree(self):
-        return average(list(self.degree().values()))
+        return np.mean(np.array([d for _, d in self.degree()]))
 
     def modify_avg_degree(self, value):
         """
