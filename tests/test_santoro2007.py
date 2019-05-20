@@ -1,4 +1,5 @@
 import unittest
+import logging
 
 from pymote import NetworkGenerator, Simulation, write_pickle, Network
 from pymote.algorithms.santoro2007.yoyo import YoYo
@@ -28,7 +29,7 @@ class TestSantoro2007(unittest.TestCase):
             name = 'Special %d' % i
 
             net.algorithms = (YoYo, )
-            sim = Simulation(net, logLevel='WARNING')
+            sim = Simulation(net, logLevel=logging.WARNING)
             sim.run()
 
             min_id = min(sim.network.nodes(), key=lambda node: node.id).id
