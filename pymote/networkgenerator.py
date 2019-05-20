@@ -113,7 +113,7 @@ class NetworkGenerator(object):
         return net
 
     def _are_conditions_satisfied(self, net):
-        cr = net.nodes()[0].commRange
+        cr = list(net)[0].commRange
         if self.connected and not is_connected(net):
             logger.debug("Not connected")
             return round(0.2*cr)
