@@ -2,21 +2,23 @@ from pymote import *  # @UnusedWildImport
 import sys
 import os  # @Reimport
 import numpy
-from PySide.QtGui import QMainWindow, QMenu, QCursor, QFileDialog, QMessageBox
-from PySide.QtCore import SIGNAL, QRect, QSize, QEvent
+
+from PySide2.QtWidgets import QMainWindow, QMenu, QFileDialog, QMessageBox
+from PySide2.QtGui import QCursor
+from PySide2.QtCore import SIGNAL, QRect, QSize, QEvent
 from matplotlib.figure import Figure
 from matplotlib.patches import Circle
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg \
+from matplotlib.backends.backend_qt5agg import FigureCanvasQT \
                                             as FigureCanvas
-from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg \
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT \
                                             as NavigationToolbar
 from networkx.drawing.nx_pylab import draw_networkx_edges
 from datetime import datetime
 from matplotlib.collections import PatchCollection, LineCollection
 import networkx as nx
 from pymote.algorithm import NodeAlgorithm
-from .simulationui import Ui_SimulationWindow
-from .dictionarytreemodel import DictionaryTreeModel
+from pymote.gui.simulationui import Ui_SimulationWindow
+from pymote.gui.dictionarytreemodel import DictionaryTreeModel
 from pymote.utils.localization.helpers import align_clusters, get_rms
 from pymote.utils.memory.positions import Positions
 from copy import deepcopy
@@ -36,9 +38,9 @@ class SimulationGui(QMainWindow):
         self.ui.nodeInspector.addAction(self.ui.actionCopyInspectorData)
         self.ui.nodeInspector.addAction(self.ui.actionShowLocalizedSubclusters)
         # callbacks
-        self.ui.actionCopyInspectorData.activated\
+        self.ui.actionCopyInspectorData.triggered\
             .connect(self.on_actionCopyInspectorData_triggered)
-        self.ui.actionShowLocalizedSubclusters.activated\
+        self.ui.actionShowLocalizedSubclusters.triggered\
             .connect(self.on_actionShowLocalizedSubclusters_triggered)
 
         self.dpi = 72
@@ -78,13 +80,13 @@ class SimulationGui(QMainWindow):
         self.connect(self.ui.locKey, SIGNAL('textEdited(QString)'),
                      self.redraw)
         # callbacks
-        self.ui.actionOpenNetwork.activated\
+        self.ui.actionOpenNetwork.triggered\
             .connect(self.on_actionOpenNetwork_triggered)
-        self.ui.actionSaveNetwork.activated\
+        self.ui.actionSaveNetwork.triggered\
             .connect(self.on_actionSaveNetwork_triggered)
-        self.ui.actionRun.activated.connect(self.on_actionRun_triggered)
-        self.ui.actionStep.activated.connect(self.on_actionStep_triggered)
-        self.ui.actionReset.activated.connect(self.on_actionReset_triggered)
+        self.ui.actionRun.triggered.connect(self.on_actionRun_triggered)
+        self.ui.actionStep.triggered.connect(self.on_actionStep_triggered)
+        self.ui.actionReset.triggered.connect(self.on_actionReset_triggered)
 
         self.canvas.mpl_connect('pick_event', self.on_pick)
 
