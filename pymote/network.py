@@ -57,7 +57,7 @@ class Network(Graph):
         assert(isinstance(H, Network))
         return H
 
-    def nodes(self, data=False):
+    def nodelist(self, data=False):
         """ Override, sort nodes by id, important for message ordering."""
         return list(sorted(super(Network,self).nodes(data=data), key=lambda k: k.id))
 
